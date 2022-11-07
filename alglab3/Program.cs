@@ -6,15 +6,7 @@ namespace alglab3
     {
         static void Main(string[] args)
         {
-            int[] arr = new int[] { 1, 2, 6, 3, 0, 30, -1 };
-
-            Sorts s = new Sorts(arr);
-
-            s.Quicksort();
-            s.Bubblesort();
-            Output.Print("quickSort.txt", 1000);
-            Output.Print("bubbleSort.txt", 1000);
-
+            DataWorker.GetTableFromFile("tables/countries.txt");
         }
     }
 }
