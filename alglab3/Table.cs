@@ -6,7 +6,7 @@ namespace alglab3
     public class Table
     {
         public Row Header { get; private set; }
-        private List<Row> Rows = new List<Row>();
+        public List<Row> Rows { get; private set; }
 
         public int RowCount { get; private set; }
 
@@ -17,6 +17,7 @@ namespace alglab3
         public Table(string[] attributesNames)
         {
             Header = new Row(attributesNames, 0);
+            Rows = new List<Row>();
         }
         public void AddRow(Row row)
         {
