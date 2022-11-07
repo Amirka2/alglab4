@@ -7,6 +7,7 @@ namespace alglab3
     {
         public string[] attributes { get; private set; }
         public int number { get; private set; }
+        public int Index { get; set; }
         public Row(string[] attributes, int number)
         {
             this.attributes = attributes;

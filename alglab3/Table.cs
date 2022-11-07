@@ -22,6 +22,8 @@ namespace alglab3
         public void AddRow(Row row)
         {
             Rows.Add(row);
+
+            row.Index = Rows.Count;
             RowCount++;
         }
         public void AddRow(string[] attributes, int number)
