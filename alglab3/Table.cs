@@ -8,7 +8,7 @@ namespace alglab3
         public Row Header { get; private set; }
         public List<Row> Rows { get; private set; }
 
-        public int RowCount { get; private set; }
+        public int Count { get; private set; }
 
         public Table()
         {
@@ -24,7 +24,7 @@ namespace alglab3
             Rows.Add(row);
 
             row.Index = Rows.Count;
-            RowCount++;
+            Count++;
         }
         public void AddRow(string[] attributes, int number)
         {
