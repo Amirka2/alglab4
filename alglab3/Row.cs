@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+
 namespace alglab3
 {
     public class Row
@@ -9,6 +11,16 @@ namespace alglab3
         {
             this.attributes = attributes;
             this.number = number;
+        }
+        public string GetAttributes()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(var attr in attributes)
+            {
+                sb.Append(attr + " ");
+            }
+
+            return sb.ToString();
         }
     }
 }

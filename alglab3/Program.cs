@@ -6,8 +6,25 @@ namespace alglab3
     {
         static void Main(string[] args)
         {
+            Run2Task();
+        }
+        static void Run2Task()
+        {
             Table table = DataWorker.GetTableFromFile("tables/countries.txt");
-            Table filteredTable = DataWorker.GetFilteredTable(table, "asia");
+            Console.WriteLine("Выберите желаемый метод сортировки (1 - прямое, 2 - естественное, 3 - многопутевое.)");
+            string sortOption = Console.ReadLine();
+
+
+            Console.WriteLine($"Возможные атрибуты: {table.Header.GetAttributes()}");
+            Console.WriteLine("Введите название ключевого атрибута: ");
+            string attributeName = Console.ReadLine().Trim();
+            Console.WriteLine("Введите значение ключевого атрибута: ");
+            string attribute = Console.ReadLine().Trim();
+
+
+            Table filteredTable = DataWorker.GetFilteredTable(table, attributeName, attribute);
+
+            Console.ReadKey();
         }
     }
 }

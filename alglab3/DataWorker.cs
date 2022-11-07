@@ -59,16 +59,20 @@ namespace alglab3
             return res;
         }
 
-        public static Table GetFilteredTable(Table table, string attribute)
+        public static Table GetFilteredTable(Table table, string attributeName, string attribute)
         {
             Table newTable = new Table(table.Header.attributes);
+            int attrIndex = -1;
+            for(int i = 0; i < newTable.Header.attributes.Length; i++)          //находим индекс нужного атрибута
+            {
+                if (attributeName == newTable.Header.attributes[i])
+                    attrIndex = i;
+            }
+
             foreach(var row in table.Rows)
             {
-                foreach(var attr in row.attributes)
-                {
-                    if (attr == attribute)
-                        newTable.AddRow(row);
-                }
+                if (row.attributes[attrIndex] == attribute)
+                    newTable.AddRow(row);
             }
 
             return newTable;
