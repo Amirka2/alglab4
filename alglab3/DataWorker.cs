@@ -35,6 +35,7 @@ namespace alglab3
 
             return result;
         }
+
         private static string[] GetAttributesFromString(string input, out int number)
         {
             string[] attributes = input.Split(';');
@@ -56,6 +57,21 @@ namespace alglab3
             }
 
             return res;
+        }
+
+        public static Table GetFilteredTable(Table table, string attribute)
+        {
+            Table newTable = new Table(table.Header.attributes);
+            foreach(var row in table.Rows)
+            {
+                foreach(var attr in row.attributes)
+                {
+                    if (attr == attribute)
+                        newTable.AddRow(row);
+                }
+            }
+
+            return newTable;
         }
     }
 }

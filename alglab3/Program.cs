@@ -6,7 +6,8 @@ namespace alglab3
     {
         static void Main(string[] args)
         {
-            DataWorker.GetTableFromFile("tables/countries.txt");
+            Table table = DataWorker.GetTableFromFile("tables/countries.txt");
+            Table filteredTable = DataWorker.GetFilteredTable(table, "asia");
         }
     }
 }
