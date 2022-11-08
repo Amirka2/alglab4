@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace alglab3
 {
@@ -7,6 +8,8 @@ namespace alglab3
         static void Main(string[] args)
         {
             Run2Task();
+            StreamWriter sw = new StreamWriter("123.txt", true);
+            sw.Write("123");
         }
         static void Run2Task()
         {
@@ -25,7 +28,7 @@ namespace alglab3
             //Table filteredTable = DataWorker.GetFilteredTable(table, attributeName, attribute);
             int[] arr = DataWorker.GetArrayFromTable(table);
             int[] resultArr = { 10000000, 1500000000, 150000000 };
-            DataWorker.RewriteTableBySort(table, resultArr, "tables/countriesSorted.txt");
+            DataWorker.RewriteTableBySort(table, resultArr, "tables/countriesSorted.txt"); 
 
         }
     }

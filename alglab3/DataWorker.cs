@@ -117,12 +117,12 @@ namespace alglab3
                     sb.Append(table.Rows[j].attributes[i] + ";");
                     Console.Write(table.Rows[j].attributes[i] + ";");
                 }
-                sb.Append(table.Rows[j].number);
+                sb.Append(table.Rows[j].number + "\n");
                 Console.WriteLine(table.Rows[j].number);
             }
-            StreamWriter sw = new StreamWriter(path, true);
-            sb.ToString();
-            sw.Write(sb.ToString());
+
+            using (StreamWriter sw = new StreamWriter("tables/countriesSorted.txt", false))
+                sw.Write(sb.ToString());
         }
     }
 }
