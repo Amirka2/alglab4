@@ -75,7 +75,6 @@ namespace alglab3
                     Quicksorting(arr, pivot + 1, right);
                 }
             }
-            //logs.Add($"правый индекс больше левого. Возвращаем массив {GetArray(arr)}");
 
             return arr;
         }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace alglab3
@@ -7,7 +9,52 @@ namespace alglab3
     {
         static void Main(string[] args)
         {
-            Run2Task();
+            //Run1Task();
+            //Run2Task();
+            //List<string> str = new List<string>();
+            //str.Add("aah");
+            //str.Add("abp");
+            //str.Add("aaa");
+
+
+            //Algorithms.BubbleSort(Checker.GetWordsList());
+        }
+        static void Run1Task()
+        {
+            try
+            {
+                Console.Write("Введите числа через пробел: ");
+                var input = Console.ReadLine();
+                var inputArr = input.Trim().Split(" ");
+                int[] arr = new int[inputArr.Length];
+                for (int i = 0; i < inputArr.Length; i++)
+                {
+                    arr[i] = Int32.Parse(inputArr[i]);
+                }
+                Sorts s = new Sorts(arr);
+                Console.WriteLine("Выберите алгоритм сортировки: 1(BubbleSort), 2(QuickSort)");
+                var option = Console.ReadLine();
+                Console.Write("Введите задержку в милисекундах: ");
+                var delay = Int32.Parse(Console.ReadLine());
+
+                switch (option)
+                {
+                    case "1":
+                        s.Bubblesort();
+                        Output.Print("bubbleSort.txt", delay);
+                        break;
+                    case "2":
+                        s.Quicksort();
+                        Output.Print("quickSort.txt", delay);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (InvalidCastException)
+            {
+                Console.WriteLine("Неккоректный ввод!");
+            }
         }
         static void Run2Task()
         {
@@ -45,7 +92,7 @@ namespace alglab3
 
             
             DataWorker.RewriteTableBySort(table, resultArr, "tables/countriesSorted.txt"); 
-
+            
         }
     }
 }
