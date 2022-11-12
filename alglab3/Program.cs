@@ -10,7 +10,7 @@ namespace alglab3
         static void Main(string[] args)
         {
             //Run1Task();
-            //Run2Task();
+            Run2Task();
             //List<string> str = new List<string>();
             //str.Add("aah");
             //str.Add("abp");
@@ -58,26 +58,28 @@ namespace alglab3
         }
         static void Run2Task()
         {
-            Table table = DataWorker.GetTableFromFile("tables/countries.txt");
             Console.WriteLine("Выберите желаемый метод сортировки (1 - прямое, 2 - естественное, 3 - многопутевое.)");
-            string sortOption = Console.ReadLine();
+            string sortOption = "1";
+            int delay = 10;
 
+            Console.WriteLine($"Возможные атрибуты: {DataWorker.GetAttributesFromFile("tables/countries.txt")} ");
+            Console.WriteLine("Введите название ключевого атрибута (он должен быть числовым): ");
+            //int keyAttribute = Int32.Parse(Console.ReadLine().Trim());
+            Console.WriteLine("Введите название атрибута, по которому отфильтровать таблицу: ");
+            //string attributeName = Console.ReadLine().Trim();
+            Console.WriteLine("Введите значение фильтрующего атрибута: ");
+            //string attributeValue = Console.ReadLine().Trim();
 
-            Console.WriteLine($"Возможные атрибуты: {table.Header.GetAttributes()}");
-            Console.WriteLine("Введите название ключевого атрибута: ");
-            string attributeName = Console.ReadLine().Trim();
-            Console.WriteLine("Введите значение ключевого атрибута: ");
-            string attribute = Console.ReadLine().Trim();
-
-
-            Table filteredTable = DataWorker.GetFilteredTable(table, attributeName, attribute);
-            int[] arr = DataWorker.GetArrayFromTable(filteredTable);
-            int[] resultArr = new int[arr.Length];
+            TableSorts ts = new TableSorts("tables/countries.txt", 4, delay);
+            string text = "china;asia;beijin;100;151\nchina;asia;beijin;100;100\nchina;asia;beijin;100;1500\nkorea;asia;Seoul;100;150\n1;asia;Seoul;100;1\n2;asia;Seoul;100;170\n3;asia;Seoul;100;100\n4;asia;Seoul;100;1000";
+            using (StreamWriter sw = new StreamWriter("tables/countries.txt", false))
+                sw.Write(text);
+            
 
             switch (sortOption)
             {
                 case "1":
-                    //resultArr = sort1(arr);
+                    ts.Sort();
                     break;
                 case "2":
                     //resultArr = sort2(arr);
@@ -89,10 +91,6 @@ namespace alglab3
                     Console.WriteLine("Введен некорректный способ сортировки");
                     break;
             }
-
-            
-            DataWorker.RewriteTableBySort(table, resultArr, "tables/countriesSorted.txt"); 
-            
         }
     }
 }
