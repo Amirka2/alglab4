@@ -9,7 +9,26 @@ namespace alglab3
 {
     internal class Checker
     {
-        public static void CountWords(string[] words)
+        public static List<double> ResultTime = new List<double>();
+        public static List<double> Time = new List<double>();
+        public static void GetAverageTime() 
+        {
+            double count = Double.MaxValue;
+
+            foreach (var item in Time)
+            {
+                if (count > item)
+                {
+                    count = item;
+                }
+                
+            }
+
+            Time.Clear();
+            ResultTime.Add(count);
+        
+        }
+        public static void CountWords(List<string> words)
         {
 
             IEnumerable<string> enumerable = words as IEnumerable<string>;
@@ -19,25 +38,25 @@ namespace alglab3
 
 
         }
-        public static string Alphabe = "abcdefghijklmnopqrstuvwxyz";
-        public static string WorkingFile()
+        
+        public static string WorkingFile(int n)
         {
 
             string text;
 
 
-            using (StreamReader sr = new StreamReader("text.txt"))
+            using (StreamReader sr = new StreamReader($"{n}text.txt"))
             {
                 text = sr.ReadLine();
             }
 
             return text;
         }
-
+        public static string Alphabe = "abcdefghijklmnopqrstuvwxyz";
         //получаем сам список слов
-        public static List<string> GetWordsList()
+        public static List<string> GetWordsList(int n)
         {
-            string line = WorkingFile();
+            string line = WorkingFile(n);
             string[] data = line.Split(" ");
 
             List<string> list = new List<string>();

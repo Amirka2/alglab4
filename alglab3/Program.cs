@@ -96,6 +96,39 @@ namespace alglab3
                     break;
             }
         }
+        void Run3Task()
+        {
+            List<string> list = new List<string>();
+            list.Add("a");
+            list.Add("aaafc");
+            list.Add("aDsba");
+            list.Add("ca");
+            list.Add("aaafd");
+            list.Add("c");
+
+            Algorithms.BubbleSort(list);
+            Console.WriteLine("------");
+            PyramidSorting.Sorting(list);
+
+            //int n = 1;
+            //while (n <= 11)
+            //{
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        //Algorithms.BubbleSort(Checker.GetWordsList(n));
+            //        //Algorithms.InsertionSort(Checker.GetWordsList(n));  ////исключила
+            //        PyramidSorting.Sorting(Checker.GetWordsList(n));
+            //    }
+            //    Checker.GetAverageTime();
+            //    n++;
+
+            //}
+            //foreach (var item in Checker.ResultTime)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            //Checker.ResultTime.Clear();
+        }
     }
 }
 
