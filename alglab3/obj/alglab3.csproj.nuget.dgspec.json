@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/amir/Projects/alglab3/alglab3/alglab3.csproj": {}
+    "/Users/amir/Projects/alogrithms/alglab3/alglab3/alglab3.csproj": {}
   },
   "projects": {
-    "/Users/amir/Projects/alglab3/alglab3/alglab3.csproj": {
+    "/Users/amir/Projects/alogrithms/alglab3/alglab3/alglab3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/amir/Projects/alglab3/alglab3/alglab3.csproj",
+        "projectUniqueName": "/Users/amir/Projects/alogrithms/alglab3/alglab3/alglab3.csproj",
         "projectName": "alglab3",
-        "projectPath": "/Users/amir/Projects/alglab3/alglab3/alglab3.csproj",
+        "projectPath": "/Users/amir/Projects/alogrithms/alglab3/alglab3/alglab3.csproj",
         "packagesPath": "/Users/amir/.nuget/packages/",
-        "outputPath": "/Users/amir/Projects/alglab3/alglab3/obj/",
+        "outputPath": "/Users/amir/Projects/alogrithms/alglab3/alglab3/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/amir/.nuget/NuGet/NuGet.Config"

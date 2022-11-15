@@ -7,7 +7,7 @@ namespace alglab3
     public class TableSorts
     {
         private string AttributeNames;
-        private int keyAttributeIndex;
+        private int keyIndex;
         public string Path { get; private set; }
         private string pathA = "tables/aFile.txt";
         private string pathB = "tables/bFile.txt";
@@ -17,19 +17,19 @@ namespace alglab3
         {
             Path = path;
             AttributeNames = GetAttributeNames();
-            keyAttributeIndex = keyIndex;
+            this.keyIndex = keyIndex;
             this.delay = delay;
         }
         public TableSorts(string path, int keyIndex, int delay, string filterAttr, string filterAttrValue)
         {
             Path = path;
             AttributeNames = GetAttributeNames();
-            keyAttributeIndex = keyIndex;
+            this.keyIndex = keyIndex;
             this.delay = delay;
             FilterTable(filterAttr, filterAttrValue);
         }
 
-        public void Sort()
+        public void DirectSort()
         {
             long linesCount = GetLinesCount(Path);
             int iterations = (int)Math.Log2(linesCount);
@@ -45,6 +45,8 @@ namespace alglab3
                 PrintFile(pathB);
                 PrintFile(Path);
             }
+            Console.WriteLine("Сортировка завершена.");
+
         }
         private void PrintFile(string path)
         {
@@ -65,9 +67,7 @@ namespace alglab3
         {
             using (StreamReader sr = new StreamReader(Path))
             {
-                var line = sr.ReadLine();
-                AttributeNames = line;
-                var attributes = line.Trim().Split(';');
+                string[] attributes = { "country", "continent", "capital", "territory", "popelation" };
                 int index = -1;
                 for (int i = 0; i < attributes.Length; i++)
                 {
@@ -75,10 +75,12 @@ namespace alglab3
                         index = i;
                 }
 
-                using (StreamWriter sw = new StreamWriter("temp" + Path, false))
+                var line = sr.ReadLine();
+
+                using (StreamWriter sw = new StreamWriter("tables/temp.txt", false))
                 {
                     line = sr.ReadLine();
-                    Console.WriteLine("Фильтруем таблицу на подтаблицу");
+                    Console.WriteLine($"Фильтруем таблицу на подтаблицу по атрибуту: {attributeValue}");
 
                     while (line != null)
                     {
@@ -87,19 +89,18 @@ namespace alglab3
                         {
                             Thread.Sleep(delay);
                             sw.WriteLine(line);
-                            Console.WriteLine($"{attributes[index]} = {attributeValue}, подходит - записываем в подтаблицу");
+                            Console.WriteLine($"{line}, подходит - записываем в подтаблицу");
                         }
                         line = sr.ReadLine();
                     }
                 }
             }
-            CopyFileData("temp" + Path);
-            
+            CopyFileData("tables/temp.txt");
         }
         private  void CopyFileData(string path)
         {
-            using (StreamReader sr = new StreamReader(this.Path))
-            using (StreamWriter sw = new StreamWriter(path, false))
+            using (StreamReader sr = new StreamReader(path))
+            using (StreamWriter sw = new StreamWriter(Path, false))
             {
                 var line = sr.ReadLine();
                 while (line != null)
@@ -188,10 +189,10 @@ namespace alglab3
                         }
 
                         var attrA = lineA.Trim().Split(';');
-                        long x = Int64.Parse(attrA[keyAttributeIndex]);
+                        long x = Int64.Parse(FormatInputNum(attrA[keyIndex]));
 
                         var attrB = lineB.Trim().Split(';');
-                        long y = Int64.Parse(attrB[keyAttributeIndex]);
+                        long y = Int64.Parse(FormatInputNum(attrB[keyIndex]));
 
                         Thread.Sleep(delay);
                         Console.Write($"\nСравниваем {x} и {y}. ");
@@ -212,140 +213,14 @@ namespace alglab3
             };
         }
 
-
-        //private  void CompareAandBAndCreateResult(string pathA, string pathB, string resultPath, int keyAttrIndex)
-        //{
-        //    using (StreamReader srA = new StreamReader(pathA))
-        //    using (StreamReader srB = new StreamReader(pathB))
-        //    {
-        //        var lineA = srA.ReadLine();
-        //        var lineB = srB.ReadLine();
-
-        //        using (StreamWriter sw = new StreamWriter(resultPath, false))
-        //        {
-        //            while (lineA != null || lineB != null)
-        //            {
-        //                if (lineA == null)
-        //                {
-        //                    sw.WriteLine(lineB);
-        //                    return;
-        //                }
-        //                else
-        //                {
-        //                    sw.WriteLine(lineA);
-        //                    return;
-        //                }
-
-        //                var a = GetKeyAttribute(lineA, keyAttrIndex);
-        //                var b = GetKeyAttribute(lineB, keyAttrIndex);
-        //                if (a > b)
-        //                    sw.WriteLine(lineB);
-        //                else
-        //                    sw.WriteLine(lineB);
-
-        //                lineA = srA.ReadLine();
-        //                lineB = srB.ReadLine();
-        //            }
-        //        }
-        //    }
-        //}
-
-        //private  void Compare2Step(string pathA, string pathB, string resultPath, int keyAttrIndex)
-        //{
-        //    using (StreamReader srA = new StreamReader(pathA))
-        //    using (StreamReader srB = new StreamReader(pathB))
-        //    {
-        //        var lineA = srA.ReadLine();
-        //        var lineB = srB.ReadLine();
-
-        //        using (StreamWriter sw = new StreamWriter(resultPath, false))
-        //        {
-        //            while (lineA != null || lineB != null)
-        //            {
-                        
-        //                var a = GetKeyAttribute(lineA, keyAttrIndex);
-        //                var b = GetKeyAttribute(lineB, keyAttrIndex);
-        //                if (a < b)
-        //                {
-        //                    WriteAndChangeLineA();
-        //                    if (a < b)
-        //                    {
-        //                        WriteAndChangeLineA();
-        //                        Compare2Elements(srA, srB, sw, keyAttrIndex);
-        //                    }
-        //                    else
-        //                    {
-        //                        WriteAndChangeLineB();
-        //                        if (a < b)
-        //                        {
-        //                            WriteAndChangeLineA();
-        //                            Compare2Elements(srA, srB, sw, keyAttrIndex);
-        //                        }
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    WriteAndChangeLineB();
-        //                    if (a < b)
-        //                    {
-        //                        WriteAndChangeLineA();
-        //                        Compare2Elements(srA, srB, sw, keyAttrIndex);
-        //                    }
-        //                    else
-        //                    {
-        //                        WriteAndChangeLineB();
-        //                        if (a < b)
-        //                        {
-        //                            WriteAndChangeLineA();
-        //                            Compare2Elements(srA, srB, sw, keyAttrIndex);
-        //                        }
-        //                    }
-        //                }
-
-        //                lineA = srA.ReadLine();
-        //                lineB = srB.ReadLine();
-
-        //                void WriteAndChangeLineA()
-        //                {
-        //                    sw.WriteLine(lineA);
-        //                    lineA = srA.ReadLine();
-        //                    if (lineA == null) return;
-        //                    a = GetKeyAttribute(lineA, keyAttrIndex);
-        //                }
-        //                void WriteAndChangeLineB()
-        //                {
-        //                    sw.WriteLine(lineB);
-        //                    lineB = srB.ReadLine();
-        //                    if (lineB == null) return;
-        //                    b = GetKeyAttribute(lineB, keyAttrIndex);
-        //                }
-        //            }
-                    
-        //        }
-        //    }
-        //}
-        //private  void Compare2Elements(StreamReader srA, StreamReader srB, StreamWriter sw, int attributeIndex)
-        //{
-        //    var lineA = srA.ToString();
-        //    var lineB = srB.ToString();
-        //    var a = GetKeyAttribute(lineA, attributeIndex);
-        //    var b = GetKeyAttribute(lineB, attributeIndex);
-
-        //    if (a < b)
-        //    {
-        //        sw.WriteLine(lineA);
-        //        sw.WriteLine(lineB);
-        //    }
-        //    else
-        //    {
-        //        sw.WriteLine(lineB);
-        //        sw.WriteLine(lineA);
-        //    }
-        //}
+        private string FormatInputNum(string num)
+        {
+            return num.Replace(" ", "");
+        }
 
         private string GetAttributeNames()
         {
-            using (StreamReader sr = new StreamReader(Path))
+            using (StreamReader sr = new StreamReader("tables/header.txt"))
             {
                 return sr.ReadLine();
             }
